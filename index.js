@@ -20,12 +20,6 @@ module.exports = class {
     return function() {
       //Convert arguments that we receive to an array
       const array = Array.from(arguments);
-      //Define the function to wrap around our runNext function
-      const prepareNext = (i) => {
-        return () => {
-          runNext(i+1);
-        }
-      }
       //Define the function to run the next middleware
       const runNext = (i) => {
         //Check if our i value is greater than or equal to our middleware length
@@ -33,7 +27,9 @@ module.exports = class {
           callback.apply(callback, array);
           return;
         }
-        this.middleware[i](array, prepareNext(i));
+        this.middleware[i](array, () => {
+          runNext(i+1);
+        });
       }
       runNext(0);
     }.bind(this);
