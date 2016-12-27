@@ -20,17 +20,17 @@ function myFunction(callback) {
 
 //Register middleware with interdict. All middleware functions must have two arguments:
 //One for the array of function arguments, and the other for the next middleware function
-interdict.add(function(array, next) {
+interdict.add(function(args, next) {
   //Do some stuff with array, which is the arguments in order
   //You should always push to the array, rather than set specific indices
-  array.push('mars');
+  args.push('mars');
   //Once you're done, call the next() function.
   next();
 });
 
 //Another example function
-interdict.add(function(array, next) {
-  array.push(42);
+interdict.add(function(args, next) {
+  args.push(42);
   next();
 });
 
