@@ -6,7 +6,7 @@ module.exports = class {
   }
 
   //Add middleware
-  add(middleware) {
+  use(middleware) {
     console.log('added');
     //Return if the user is not trying to add a function
     if(typeof middleware !== 'function') {
