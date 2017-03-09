@@ -17,17 +17,23 @@ interdict.use(function(args, next) {
   next();
 });
 
-//Another example function
-interdict.use(function(args, next) {
-  args.push(42);
-  next();
-});
+//Another example function (with chaining)
+//Function order is retained
+interdict
+    .use(function(args, next) {
+      args.push(42);
+      next();
+    })
+    .use(function(args, next) {
+        args.push('last');
+        next();
+    });
 
 
 myFunction(interdict.run(
-  function(myArg1, myArg2, myArg3, myArg4) {
+  function(myArg1, myArg2, myArg3, myArg4, myArg5) {
     //If we log all of these, then they should be in the order added, which is:
-    //foo, bar, mars, 42
-    console.log(myArg1, myArg2, myArg3, myArg4);
+    //foo, bar, mars, 42, last
+    console.log(myArg1, myArg2, myArg3, myArg4, myArg5);
   }
 ));

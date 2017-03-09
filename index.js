@@ -7,11 +7,13 @@ module.exports = class {
 
   //Add middleware
   use(middleware) {
-    //Return if the user is not trying to add a function
+    //Throw an error if the user is not trying to add a function
     if(typeof middleware !== 'function') {
-      return new Error('Not a function');
+      throw new Error('Not a function');
     }
     this.middleware.push(middleware);
+    //Return this class, so that .use can be chained
+    return this;
   }
 
   //For when the middleware chain should be run
